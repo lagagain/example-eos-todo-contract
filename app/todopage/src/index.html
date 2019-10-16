@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>代辦清單</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="container" id="todo_app">
+      <h1>代辦清單</h1>
+      <ul class="list-group" v-for="task in tasks">
+        <li class="list-group-item"> {{ task.id }}. [{{ task.status }}] {{ task.task }}
+          <div class="btn btn-success" id="btn_complete" v-bind:data-id="task.id">完成</div>
+          <div class="btn btn-danger" id="btn_delete" v-bind:data-id="task.id">刪除</div>
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script src="js/app.js"></script>
+</html>
