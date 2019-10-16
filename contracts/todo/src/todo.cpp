@@ -21,7 +21,7 @@ ACTION todo::update(uint64_t id, string new_status){
 
   auto task_lookup = tasks.find(id);
 
-  eosio::check(task_lookup != tasks.end(), "Todo does not exist");
+  eosio::check(task_lookup != tasks.end(), "Task does not exist");
   //eosio::internal_use_do_not_use::eosio_assert(task_lookup != tasks.end(), "Todo does not exist");
   
   name owner = task_lookup->owner;
@@ -37,8 +37,11 @@ ACTION todo::update(uint64_t id, string new_status){
 ACTION todo::remove(uint64_t id){
   tasks_table tasks(_self, _self.value);
 
-  auto todo_lookup = tasks.find(id);
-  tasks.erase(todo_lookup);
+  auto task_lookup = tasks.find(id);
+  eosio::check(task_lookup != tasks.end(), "Task does not exist");
+  require_auth(task_lookup->owner);
+
+  tasks.erase(task_lookup);
 
   eosio::print("todo#", id, " destroyed");
 }
