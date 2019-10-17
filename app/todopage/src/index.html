@@ -4,14 +4,17 @@
     <meta charset="UTF-8"/>
     <title>代辦清單</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script>
-    <!--script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs.min.js"></script-->
-    <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs2.min.js"></script>
+    <!-- <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script> -->
+    <!-- <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs.min.js"></script> -->
+    <!--script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs2.min.js"></script-->
   </head>
   <body>
     <div class="container" id="todo_app">
       <div class="btn btn-primary" id="connect">連線</div>
-      <div class="btn btn-primary" id="login">登入</div>
+      <div class="btn btn-primary" id="login" v-show="!account">登入</div>
+      <div class="btn btn-danger" id="logout" v-show="account">登出</div>
+      <div v-if="account">登入狀態：{{account.name}}@{{account.authority}}</div>
+      <div v-else>登入狀態：（未登入）</div>
       <h1>代辦清單</h1>
       <ul class="list-group" v-for="task in tasks">
         <li class="list-group-item"> {{ task.id }}. [{{ task.status }}] {{ task.task }}
