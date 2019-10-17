@@ -1,0 +1,49 @@
+
+* Directory Struct
+  
+  - app/ # Web Dapp souce files
+    - todopage/
+      - src/ # source code
+        - js/
+      - public # build path
+  - contracts/ # smart contract
+    - todo/
+      - src/ # main source code
+      - include/ # head files
+* Compile & Deploy Contract
+  編譯合約：
+  #+name: compile_todo_contract
+  #+begin_src bash
+    cd contrcts/todo
+    eosio-cpp -abigen -I include -contract todo -o todo.wasm src/todo.cpp
+  #+end_src
+
+  部署合約到 =dapp1= 帳號：
+  #+name: deploy_todo_contract
+  #+begin_src bash
+    cd contracts/
+    cleos set contract dapp1 todo
+  #+end_src
+
+* Build App
+
+  透過 =parcel= 建置app。建置結果會在 =app/todopage/public= 資料夾裡。
+  #+name: build_todopage_app
+  #+begin_src bash
+    cd app/todopage/
+    parcel build -d public src/index.html --public-url ./
+  #+end_src
+
+
+  Parcel的使用可以參考:[[https://ithelp.ithome.com.tw/articles/10206380][Parcel入門使用]]。
+
+  你可以修改 =--public-url= 參數，然後將結果直接部署到網站。
+
+  
+* Config App
+
+  所有需要設定的參數都在 =app/todopage/src/js/config.js=
+
+  #+include: "./app/todopage/src/js/config.js" src js
+
+  你可能會需要修改 =cahinId= 。如果nodeos所開啟RPC的協議、端口、主機位置有所不同也需要修改。此外，如果部署合約時，不是部署到 =dapp1= 帳號，也請修改 =dapp= 參數。
