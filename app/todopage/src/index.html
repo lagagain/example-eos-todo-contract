@@ -4,9 +4,9 @@
     <meta charset="UTF-8"/>
     <title>代辦清單</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script> -->
+    <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script>
     <!-- <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs.min.js"></script> -->
-    <!--script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs2.min.js"></script-->
+    <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs2.min.js"></script
   </head>
   <body>
     <div class="container" id="todo_app">
@@ -16,13 +16,26 @@
       <div v-if="account">登入狀態：{{account.name}}@{{account.authority}}</div>
       <div v-else>登入狀態：（未登入）</div>
       <h1>代辦清單</h1>
+      <div id="refresh_setting">
+        <label for="refresh_index">從：</label>
+        <input id="refresh_index" type="number" value="1" v-model="task_index"/>
+        <label for="refresh_limit">數量：</label>
+        <input id="refresh_limit" type="number" value="50" v-model="task_show_limit"/>
+        <div class="btn btn-primary" id="refresh">刷新任務</div>
+      </div>
       <ul class="list-group" v-for="task in tasks">
         <li class="list-group-item"> {{ task.id }}. [{{ task.status }}] {{ task.task }}
-          <div class="btn btn-success" id="btn_complete" v-bind:data-id="task.id">完成</div>
-          <div class="btn btn-danger" id="btn_delete" v-bind:data-id="task.id">刪除</div>
+          <div class="btn btn-success btn_complete" v-bind:data-id="task.id">完成</div>
+          <div class="btn btn-danger btn_delete" v-bind:data-id="task.id">刪除</div>
         </li>
       </ul>
-    </div>
+      <div v-if="task_more">還有其他任務</div>
+      <div id="create_task_setting">
+        <h2>新增任務</h2>
+        <label for="new_task_content">任務內容：</label>
+        <input id="new_task_content" v-model="new_task" placeholder="任務內容" type="text" value=""/>
+        <input class="btn btn-primary" id="btn_create_task" type="button" value="新增"></input>
+      </div>
   </body>
   <script src="js/app.js"></script>
 </html>

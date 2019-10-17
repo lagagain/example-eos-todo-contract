@@ -6,6 +6,7 @@ let config = {
     port:8888,
     protocol:'http'
   },
+  dapp:'dapp1',
 };
 
 
@@ -13,4 +14,4 @@ module.exports = {
   config:config,
 };
 
-//export config;
+// export config;
