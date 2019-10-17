@@ -29,11 +29,6 @@ const network = ScatterJS.Network.fromJson(config.config.network);
 const rpc = new JsonRpc(network.fullhost());
 const api = new Api({ rpc, signatureProvider:ScatterJS.scatter.eos, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 const eos = ScatterJS.scatter.eos(network, Api, {rpc});
-window.rpc = rpc;
-window.api = api;
-window.network = network;
-window.Api = Api;
-window.eos = eos;
 
 async function connect(){
   await ScatterJS.connect('todoapp', {network}).then(connected => {
